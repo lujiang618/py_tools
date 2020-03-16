@@ -8,6 +8,7 @@ from pkg.config import config, dir_dd
 from .db import Db
 from .tools import save2txt
 
+
 # 创建数据库字典文件，保存格式.md
 class CreateDD(Db):
     columns = ['Field', 'Type', 'Null', 'Key', 'Default', 'Extra', 'Comment']
@@ -47,7 +48,13 @@ class CreateDD(Db):
         table_list = df.to_dict(orient='index').values()
 
         title = '|%s|%s|%s|%s|%s|%s|%s|' % tuple(self.columns)
-        save2txt(file, '> 共有表：%d张\r[TOC]' % len(table_list))
+        save2txt(file, '[TOC]')
+
+        table_index = 1
+        save2txt(file, '#### 0.概览\r共有表：%d张\r|%s|%s|%s|%s|\r| -- | -- | -- | -- |' % (len(table_list),'序号', '表名', '说明', '备注'))
+        for table in table_list:
+            save2txt(file, '|%d|%s|%s|%s|' % (table_index, table['Name'], table['Comment'], ''))
+            table_index += 1
 
         index = 1
         for table in table_list:
