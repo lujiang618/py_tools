@@ -1,3 +1,4 @@
+
 # coding = utf-8
 
 import datetime
@@ -12,14 +13,14 @@ from pkg.config import config, dir_logs
 class Db(object):
     cursor = None
 
-    def __init__(self, db='ecstore'):
+    def __init__(self):
         mysql = config['mysql']
 
         db = MySQLdb.connect(
             host=mysql['host'],
             user=mysql['username'],
             password=str(mysql['password']),
-            database=db,
+            database=mysql['datebase'],
             charset=mysql['charset'],
             use_unicode=True,
             connect_timeout=30

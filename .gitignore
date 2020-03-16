@@ -1,0 +1,6 @@
+
+.idea/
+/data
+/config
+pkg/__pycache__
+pkg/*/__pycache__

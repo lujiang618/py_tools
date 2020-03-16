@@ -1,8 +1,10 @@
 # coding = utf-8
 
-import matplotlib.pyplot as plt
 import os
+import re
 import shutil
+
+import matplotlib.pyplot as plt
 from bs4 import BeautifulSoup
 
 
@@ -52,3 +54,20 @@ def paint_common(title, path, x_label='Date'):
 
 def print_star(text):
     print("*" * 60 + text + "*" * 60)
+
+
+def save2txt(filename, data):
+    if not os.path.exists(os.path.dirname(filename)):
+        os.makedirs(os.path.dirname(filename), 755)
+
+    with open(filename, mode='a', encoding='utf-8') as file_handle:
+        if isinstance(data, list):
+            for content in data:
+                if isinstance(content, list):
+                    content = ','.join(content)
+
+                file_handle.write(str(content))  # 写入
+                file_handle.write('\n')
+        else:
+            file_handle.write(str(data))  # 写入
+            file_handle.write('\n')
