@@ -3,6 +3,7 @@
 import os
 import re
 import shutil
+import csv
 
 import matplotlib.pyplot as plt
 from bs4 import BeautifulSoup
@@ -19,6 +20,19 @@ def strip_html_tag(text):
 
     return result
 
+
+def path_list_exists(path_list):
+    for path in path_list:
+        if os.path.exists(path):
+            continue
+        os.makedirs(path)
+
+def save2csv(column, rows, file):
+    fp = open(file, 'w', encoding='utf-8', newline='')
+    file = csv.writer(fp, quoting=csv.QUOTE_ALL, doublequote=True, escapechar='')
+    file.writerow(column)
+    file.writerows(rows)
+    fp.close()
 
 # 删除data目录下所有文件
 def del_data_file(data_path):
